@@ -1,0 +1,403 @@
+body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+canvas{
+    box-shadow: 10px 1px 10px blue;
+}
+h1{
+    text-align: center;
+}
+/*
+#cord{
+    margin-top: 20px;  
+}*/
+
+.tools{
+    width: 400px;
+    height: 50px;
+    margin: 2rem 0 0 3rem;
+    position: absolute;
+    right: 3em;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    place-items: center;
+   /* position: relative;*/
+    grid-area: tools;
+    background-color: aliceblue;
+    border-radius: 2em;
+    padding-left: 2em;
+}
+
+#start, #end, #obstacle {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.shape::before{
+    content: '';
+    border-radius: 50%;
+    position: absolute;
+    transition: .3s;
+}
+
+#start::before{
+    border: 1px solid rgb(119, 0, 255);
+    background-color: rgb(119, 0, 255);
+    width: 2.2em;
+    height: 2.2em;
+    left: 8%;
+    top: 12%;
+    
+}
+#end::before{
+    left: 40%;
+    top: 35%;
+    width: .5em;
+    height: 15%;
+    border: 3px solid red;
+    background-color: red;
+    box-shadow: 0px 0px 0px 3px white,
+                0px 0px 0px 6px red,
+                0px 0px 0px 9px white,
+                0px 0px 0px 12px red;
+    transition: 1s;
+}
+
+#obstacle::before{
+    top: 15%;
+    left: 65%;
+    border: 1px solid rgb(144, 101, 21);
+    border-radius: 0;
+    background-color: rgb(144, 101, 21);
+    width: 2rem;
+    height: 2rem;
+}
+
+#start:hover::before{
+    background-color: rgb(95, 7, 195); 
+    width: 2rem;
+    height: 2rem;
+    left: 9%;
+    top: 13%;
+}
+#start:hover,
+#end:hover,
+#obstacle:hover
+{
+text-shadow: 1px 1px 20px blue;
+cursor: pointer;
+}
+#end:hover::before{
+   box-shadow: 0px 0px 0px 3px red,
+                0px 0px 0px 6px white,
+                0px 0px 0px 9px red,
+                0px 0px 0px 12px white;
+}
+
+#obstacle:hover::before{
+    background-color: rgb(209, 137, 4);
+    width: 2.2rem;
+    height: 2.2rem;
+}
+
+button{
+    width: 8em;
+    padding: .5em;
+    background-color: rgba(115, 11, 212, 0.765); 
+    border: 1px solid white;
+    height: 70%;
+    color: aliceblue;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 1.5em;
+    border-radius: .5em;
+}
+button:not(.logo):hover{
+    background-color: rgb(255, 255, 255);
+    color: rgb(3, 3, 3);
+}
+/*
+.tools-container{
+    background-color: rgba(115, 11, 212, 0.765);
+    width: 100%;
+}*/
+.wrapper{
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-areas:" btns tools" ;
+    padding-bottom:2em;
+    background-color: rgba(115, 11, 212, 0.765);;
+    width: 100%;
+    place-items: center;
+    margin: 0 3em 1em;
+}
+.btns{
+    grid-area: btns;
+    display: grid;
+    grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    
+}
+
+#toolTip, 
+#Adjustment{
+    position: absolute;
+    left:50px;
+    width: 450px;
+    height: fit-content;
+    border-radius: 20px;
+    background-color: rgba(152, 103, 231, 1);
+    padding: 2em 1em;
+    color: rgba(255, 255, 255, 1);
+    font-size: 3vh;
+    text-align: center;
+    visibility: hidden;
+    animation: ease-in .3s;
+}
+#Adjustment{
+    width: 400px;
+    left: auto;
+    right:50px;
+    visibility: visible;
+    text-align: left;
+}
+
+
+
+.close::before{
+    content: '';
+    width: 20px;
+    height: 3px;
+    
+    position: absolute;
+    right: 20px;
+    background-color:rgba(255,255,255,1);
+    transform: rotate(45deg);
+    z-index: 998;
+}
+.close::after{
+    content: '';
+    width: 20px;
+    height: 3px;
+
+    position: absolute;
+    right: 20px;
+    background-color: rgba(255,255,255,1);
+    transform: rotate(-45deg);
+    z-index: 997;
+}
+.close:hover::before,
+.close:hover::after
+{
+   background-color: white;
+   box-shadow: 0 0 0 2px rgb(230, 230, 230);
+}
+
+
+
+.canvas-container{
+    display: inline-block;
+}
+
+span:not(.close){
+    display: block;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: larger;
+    margin-bottom: .5rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.active {
+    background-color: rgb(255, 255, 255);
+    color: black;
+}
+
+.activeShape{
+    text-shadow: 5px 5px 10px rgb(7, 7, 209);
+}
+
+
+.slider, .slider1 {
+    -webkit-appearance: none;
+    width: 70%;
+    height: 15px;
+    border-radius: 5px;
+    background: #ffffff;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+  }
+  .slider1{
+    width: 75%;
+  }
+  
+  .slider:hover {
+    opacity: 1;
+  }
+  
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #04AA6D;;
+    cursor: pointer;
+  }
+  
+  .slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #04AA6D;
+    cursor: pointer;
+  }
+
+  .sizer{
+      margin-top: 2rem;
+  }
+
+  .btnClear{
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 1em;
+  }
+  .btnClear button{
+      width: 100%;
+  }
+
+  .logo{
+      border: none;
+      background-color: transparent;
+      font-family: sans-serif;
+      font-size: 3vh;
+      margin: 0 3em 0 0;
+      transition: .3s;
+      padding: 1.5em 0 0 0;
+     
+  }
+  .logo:hover{
+      font-size:3vh ;
+      text-shadow: 0 1px 2px rgb(64, 219, 88);
+  }
+  
+ 
+
+
+  @media only screen and (max-width: 600px) {
+    #Adjustment{
+        visibility: hidden;
+    }
+
+    .wrapper{
+        display: grid;
+     
+        grid-template-areas:" btns btns btns"
+                             "tools tools tools" ;
+        background-color: rgba(115, 11, 212, 0.765);
+        width: 100%;
+    }
+    
+    .btns{
+        grid-area: btns; 
+        display: grid;   
+        grid-template-columns: 1fr 1fr 1fr;  
+        grid-template-rows:  1fr 1fr 1fr;
+        grid-template-areas:" logo logo logo"
+                              "bfs dfs djikst"
+                              "aStar gbs reset" ;
+        padding: 0;
+        grid-gap: 0 ;
+    }
+    .logo{ grid-area: logo;
+        width: 100%;
+        padding: .5em;
+        background-color: rgba(61, 9, 109, 0.765); 
+        display: block;
+        height: 70%;
+        color: aliceblue;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 1em 0em;
+        
+    }
+    .tools{
+        position: relative;
+        width:80%;
+        margin: 1em 0 1em 25%;
+    }
+
+    /****************** shapes   */
+    #start::before{
+        border: 1px solid rgb(119, 0, 255);
+        background-color: rgb(119, 0, 255);
+        width: 2.2em;
+        height: 2.2em;
+        left: 8%;
+        top: 12%;
+        
+    }
+    #end::before{
+        left: 40%;
+        top: 35%;
+        width: .5em;
+        height: 15%;
+        border: 3px solid red;
+        background-color: red;
+        box-shadow: 0px 0px 0px 3px white,
+                    0px 0px 0px 6px red,
+                    0px 0px 0px 9px white,
+                    0px 0px 0px 12px red;
+        transition: 1s;
+    }
+    
+    #obstacle::before{
+        top: 15%;
+        left: 65%;
+        border: 1px solid rgb(144, 101, 21);
+        border-radius: 0;
+        background-color: rgb(144, 101, 21);
+        width: 2rem;
+        height: 2rem;
+    }
+    
+    #start:hover::before{
+        background-color: rgb(95, 7, 195); 
+        width: 2rem;
+        height: 2rem;
+        left: 9%;
+        top: 13%;
+    }
+    #start:hover,
+    #end:hover,
+    #obstacle:hover
+    {
+    text-shadow: 1px 1px 20px blue;
+    cursor: pointer;
+    }
+    #end:hover::before{
+       box-shadow: 0px 0px 0px 3px red,
+                    0px 0px 0px 6px white,
+                    0px 0px 0px 9px red,
+                    0px 0px 0px 12px white;
+    }
+    
+    #obstacle:hover::before{
+        background-color: rgb(209, 137, 4);
+        width: 2.2rem;
+        height: 2.2rem;
+    }
+
+    .toolTip{
+        display: hidden;
+    }
+
+  }

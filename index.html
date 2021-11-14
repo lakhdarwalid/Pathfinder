@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+  <!--  <div class="tools-container">  -->
+        <div class="wrapper">
+            <div class="btns">
+                <button class="logo">Pathfinder</button>
+                <button id="bfs">BFS</button>
+                <button id="dfs">DFS</button>
+                <button id="djikst">Djikstra</button>
+                <button id="aStar">A*</button>
+                <button id="gbs">GBS</button>
+                <button id="reset">Reset</button>
+            </div>
+            <div class="tools">
+                <div id="start" class="shape">Start</div>
+                <div id="end" class="shape">Target</div>
+                <div id="obstacle" class="shape">Obstacle</div>
+            </div>
+    <!--    </div>-->
+    </div>
+    <h1 id="lbl1">Pathfinder</h1>
+    <div class="canvas-container">
+        <div id="toolTip">
+            <span id="close" class="close"></span>
+            <p></p>
+        </div>
+        <div id="Adjustment">
+            <span id="close1" class="close"></span>
+            <h3>Settings</h3>
+            <div class="sizer">
+                <label for="cellSize">Cell's size :</label>
+                <input type="range" min="1" max="5" value="4" class="slider" id="cellSizer"/>
+            </div>
+            <div class="sizer">
+                <label for="canvasSize">Fast</label>
+                <input type="range" min="1" max="200" value="50" class="slider slider1" id="animationTime"/>
+                <label for="canvasSize">Slow</label>
+            </div>
+            <div class="btnClear">
+                <Button id="clearPath">Clear Path</Button>
+                <Button id="clearBoard">Clear Board</Button>
+             </div>
+        </div>
+        <canvas></canvas>
+    </div>
+  <!--  <label id="cord">x,y</label>  -->
+    
+    
+   <script src="Cell.js"></script> 
+   <script src="bfs.js"></script>
+   <script src="dfs.js"></script>
+   <script src="djikstra.js"></script>
+   <script src="astar.js"></script>
+   <script src="gbs.js"></script>
+   <script src="script.js"></script> 
+</body>
+</html>
