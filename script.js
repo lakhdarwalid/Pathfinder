@@ -345,11 +345,22 @@ function clearBoard(){
         }));
 }
 
+function checkForWalls(){
+    cellsMatrix.forEach(row => 
+        row.forEach(col => {
+                if (col.isWall) {
+                    ctx.fillStyle = 'rgb(144, 101, 21)';
+                    ctx.fillRect(col.x+2, col.y+2, col.size-2, col.size-2);
+                };
+        }));
+}
+
 function resetSetup(){
     clearBoard();
     clearInterval(loop);
     if (startItem != null) startItem.drawStartPoint();
     if (targetItem != null) targetItem.drawTargetPoint();
+    checkForWalls();
     way=[];
     found = false;
     inProcess=false;
